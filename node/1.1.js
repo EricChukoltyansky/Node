@@ -18,9 +18,3 @@
 // 7. Some of the Node js modules are Lodash,express etc. These modules are to be imported from npm
 // 8. Node.js is written in C,C++ and JS
 
-// git init
-// git add README.md
-// git commit -m "first commit"
-// git branch -M main
-// git remote add origin https://github.com/EricChukoltyansky/Node.git
-// git push -u origin main
