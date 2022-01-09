@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 
 fs.writeFileSync("notes.txt", "My name is Electra");
 
@@ -11,5 +12,15 @@ function callbackRename(err) {
   console.log("source.txt was copied to destination.txt");
 }
 
-fs.copyFile("notes.txt", "copiedNotes.txt", callback);
-fs.rename("copiedNotes.txt", "newCopiedNotes.txt", callbackRename);
+// const directoryPath = path.join(__dirname, "node");
+fs.readdir("./", function (err, files) {
+  if (err) {
+    return console.log("Unable to scan directory: " + err);
+  }
+  files.forEach(function (file) {
+    console.log(file);
+  });
+});
+
+// fs.copyFile("notes.txt", "copiedNotes.txt", callback);
+// fs.rename("copiedNotes.txt", "newCopiedNotes.txt", callbackRename);
