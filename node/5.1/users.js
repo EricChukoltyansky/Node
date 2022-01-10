@@ -38,12 +38,7 @@ const readUsers = (id) => {
 const updateUsers = (id, newName) => {
   const users = loadUsers();
   //   console.log(users)
-  const user = users.find((user) => {
-    console.log("user id", user.id);
-    // console.log("id",id)
-    user.id === id;
-    console.log("id", id);
-  });
+  const user = users.find((user) => user.id === id);
 
   user.name = newName;
   console.log(user);
