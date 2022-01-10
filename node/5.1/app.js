@@ -27,21 +27,40 @@ yargs.command({
   },
 });
 
-// yargs.command({
-//   command: "read",
-//   describe: "Read a note",
-//   handler: function () {
-//     console.log("Reading a note");
-//   },
-// });
+yargs.command({
+  command: "read",
+  describe: "Read a user",
+  builder: {
+    id: {
+      describe: "User id",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler: function (argv) {
+    users.readUsers(argv.name);
+  },
+});
 
-// yargs.command({
-//   command: "list",
-//   describe: "List all notes",
-//   handler: function () {
-//     console.log("Listing all notes");
-//   },
-// });
+yargs.command({
+  command: "update",
+  describe: "Update a user",
+  builder: {
+    id: {
+      describe: "User id",
+      demandOption: true,
+      type: "string",
+    },
+    newName: {
+      describe: "User name",
+      demandOption: true,
+      type: "string",
+    },
+  },
+  handler: function (argv) {
+    users.updateUsers(argv.id, argv.newName);
+  },
+});
 
 yargs.command({
   command: "remove",

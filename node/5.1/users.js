@@ -5,7 +5,7 @@ const uniqid = require("uniqid");
 const addUsers = function (id, name, email) {
   const users = loadUsers();
   const duplicateUsers = users.filter(function (user) {
-    return user.title === title;
+    return user.name === name;
   });
 
   if (duplicateUsers.length === 0) {
@@ -19,6 +19,35 @@ const addUsers = function (id, name, email) {
   } else {
     console.log("User already added!");
   }
+};
+
+const readUsers = (id) => {
+  const users = loadUsers();
+  const user = users.find((user) => {
+    user.id === id;
+  });
+
+  if (user) {
+    console.log(chalk.inverse(user.name));
+    console.log(user.name);
+  } else {
+    console.log(chalk.red.inverse("User not found"));
+  }
+};
+
+const updateUsers = (id, newName) => {
+  const users = loadUsers();
+  //   console.log(users)
+  const user = users.find((user) => {
+    console.log("user id", user.id);
+    // console.log("id",id)
+    user.id === id;
+    console.log("id", id);
+  });
+
+  user.name = newName;
+  console.log(user);
+  saveUsers(users);
 };
 
 const removeUsers = function (id) {
@@ -50,4 +79,4 @@ const loadUsers = function () {
   }
 };
 
-module.exports = { addUsers, removeUsers };
+module.exports = { addUsers, removeUsers, readUsers, updateUsers };
