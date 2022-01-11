@@ -16,6 +16,12 @@ const requestListener = function (req, res) {
         res.end(contents);
       });
       break;
+    case "/html":
+      fs.readFile(__dirname + "/index.html").then((contents) => {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.end(contents);
+      });
+      break;
     default:
       res.writeHead(404);
       res.end(JSON.stringify({ error: "Resource not found" }));
