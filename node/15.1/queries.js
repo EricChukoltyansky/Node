@@ -41,3 +41,5 @@
 'db.restaurants.aggregate([{$project: {reviewsAvg: {$avg: "reviews.score"}}}])';
 // Write a mongoDb query to display all restaurants average score.
 "db.restaurants.aggregate([{$unwind: '$reviews'},{$group : {_id: '$name', avgScore: { $avg: '$reviews.score'}}}])";
+// Write a mongoDb query to display a specific restaurant average score
+'db.restaurants.aggregate([{ $unwind: "$reviews" }, { $match: { name: "Bennelong" } }, { $group: { _id: "$name", Average: { $avg: "$reviews.score" } } }])';
