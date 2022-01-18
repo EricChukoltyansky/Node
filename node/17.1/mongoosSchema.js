@@ -3,7 +3,7 @@ const validator = require("validator");
 
 mongoose.connect("mongodb://127.0.0.1:27017/ecommerce");
 
-const User = mongoose.model("User", {
+const productSchema = new mongoose.Schema("product", {
   name: {
     type: String,
     required: true,
@@ -34,37 +34,81 @@ const User = mongoose.model("User", {
     description: {
       type: String,
       trim: true,
-      minLenght: 10
-      },
+      minLenght: 10,
     },
     price: {
-        type: Number,
-        validate(value) {
-            if(value < 0) {
-                throw new Error('Must be a positive number')
-            }
+      type: Number,
+      validate(value) {
+        if (value < 0) {
+          throw new Error("Must be a positive number");
         }
+      },
     },
     discount: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0,
     },
     images: {
-        []
-    }
+      type: Image,
+    },
+    phone: {
+      type: String,
+      validate(value) {
+        if (!validator.isMobilePhone(value, ["he-IL"])) {
+          throw new Error("Invalid Phone Number");
+        }
+      },
+      required: true,
+    },
   },
 });
 
-const me = new User({
-  name: "Andrew",
-  age: 26,
-  email: "mike@",
+const pro1 = new User({
+  name: "pro1",
+  category: "category1",
+  isActive: true,
+  details: {
+    price: 20,
+    description: "something",
+    phone: "0559544755",
+  },
+});
+const pro2 = new User({
+  name: "pro2",
+  category: "category1",
+  isActive: true,
+  details: {
+    price: 20,
+    description: "something",
+    phone: "0559544755",
+  },
+});
+const pro3 = new User({
+  name: "pro3",
+  category: "category1",
+  isActive: true,
+  details: {
+    price: 20,
+    description: "something",
+    phone: "0559544755",
+  },
 });
 
-me.save()
+const Product = mongoose.model("products", userSchema);
+
+Product.insertMany()
   .then(() => {
-    console.log(me);
+    console.log("Added successfuly");
   })
-  .catch((error) => {
-    console.log("Error!", error);
+  .catch((err) => {
+    console.log(err);
   });
+
+const addUser = async (product) => {
+  try {
+    const newUser = await Product.create(product);
+    await newUser.save();
+  } catch (err) {
+    console.log(err.message);
+  }
+};
