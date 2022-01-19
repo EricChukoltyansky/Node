@@ -11,6 +11,8 @@ require("dotenv").config();
 
 router.get("/products", async (req, res) => {
   const activeStatus = req.query.activeStatus;
+  console.log(req.query.maxPrice);
+  console.log(req.query.minPrice);
   const minPrice = req.query.minPrice;
   const maxPrice = req.query.maxPrice;
   try {
@@ -41,6 +43,53 @@ router.route("/products").post(async (req, res) => {
     res.status(201).send(product);
   } catch (e) {
     res.status(400).send({ error: e.message });
+  }
+});
+
+router.patch("/products/:id", async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["isActive", "details"];
+  const isValid = updates.every((update) => allowedUpdates.includes(update));
+
+  if (!isValid) {
+    return res.status(404).send({ error: "Invalid updtes" });
+  }
+
+  try {
+    const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!product) {
+      res.status(404).send();
+    }
+    res.send(product);
+  } catch (e) {
+    res.status(400).send({ error });
+  }
+});
+
+router.delete("/products/:id", async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    if (!product) {
+      res.status(404).send();
+    }
+    res.send(product);
+  } catch (error) {
+    res.status(500).send();
+  }
+});
+
+router.delete("/products", async (req, res) => {
+  try {
+    const products = await Product.deleteMany({});
+    if (!products) {
+      res.status(404).send();
+    }
+    res.send(products);
+  } catch (error) {
+    res.status(500).send();
   }
 });
 

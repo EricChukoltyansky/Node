@@ -1,18 +1,23 @@
 const Product = require("../schemes/Product");
 
-async function getAllProducts(activeStatus, minPrice, maxPrice) {
-  if (activeStatus) {
-    const products = await Product.find({ isActive: activeStatus });
-    res.send(products);
-  }
+async function getAllProducts(active, minPrice, maxPrice) {
   if (minPrice && maxPrice) {
+    console.log("min", minPrice);
+    console.log("max", maxPrice);
     const product = await Product.find({
       "details.price": { $gte: minPrice, $lt: maxPrice },
     });
-    res.send(product);
+    console.log(product);
+    return product;
   }
 
-  return Product.find({});
+  if (active) {
+    const products = await Product.find({ isActive: active });
+    return products;
+  } else {
+    const products = await Product.find({});
+    return products;
+  }
 }
 
 async function getProduct(id) {

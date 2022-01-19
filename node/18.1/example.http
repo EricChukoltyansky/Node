@@ -1,4 +1,4 @@
-GET http://localhost:3000/products 
+GET http://localhost:3000/products/?maxPrice=100&minPrice=50
 
 ###
 
@@ -22,3 +22,8 @@ content-type: application/json
 }
 
 ###
+
+DELETE http://localhost:3000/products/61e7d6798c0e6e2a581c9022
+
+###
+DELETE http://localhost:3000/products
