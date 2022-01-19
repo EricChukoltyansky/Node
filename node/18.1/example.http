@@ -1,1 +1,24 @@
 GET http://localhost:3000/products 
+
+###
+
+GET http://localhost:3000/products/61e7d6798c0e6e2a581c9022
+
+###
+
+POST http://localhost:3000/products HTTP/1.1
+content-type: application/json
+
+
+{
+    "name": "Product 4",
+    "category": "category 1",
+    "isActive": true,
+    "details": {
+      "price": 20,
+      "description": "jkvbjdflbkjsflbjsljdbkljs",
+      "phoneNumber": "0525867945"
+    }
+}
+
+###

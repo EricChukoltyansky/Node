@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-mongoose.connect("mongodb://127.0.0.1:27017/products");
-
 const productSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -44,5 +42,5 @@ const productSchema = new mongoose.Schema({
     },
   },
 });
-
-module.exports = mongoose.model("Product", productSchema);
+const Product = mongoose.model("Product", productSchema);
+module.exports = Product;
