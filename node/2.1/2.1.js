@@ -23,4 +23,10 @@ fs.readdir("./", function (err, files) {
 });
 
 // fs.copyFile("notes.txt", "copiedNotes.txt", callback);
+
 // fs.rename("copiedNotes.txt", "newCopiedNotes.txt", callbackRename);
+
+const files = fs.readdirSync(__dirname);
+files.forEach((file) => {
+  console.log(file);
+});
